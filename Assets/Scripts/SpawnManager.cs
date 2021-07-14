@@ -5,11 +5,14 @@ using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
+    private Transform _level;
     private float spawnPosX;
-    private float spawnPosZ;
+    private float spawnPosZ = -2.12132f;
+    public float SpawnPosX { get => spawnPosX;}
+    public float SpawnPosZ { get => spawnPosZ;}
     private void Start() 
     {
-        spawnPosZ = -2.12132f;
+        _level = FindObjectOfType<SpawnManager>().transform;
         GenerateStartTiles();
     }
     private void GenerateStartTiles()
@@ -24,8 +27,21 @@ public class SpawnManager : MonoBehaviour
         GetPositionXandZ();
         Vector3 spawnPos = new Vector3(spawnPosX, 0, spawnPosZ);
         GameObject obj = ObjectPooler.instance.SpawnFromPool("tile", spawnPos, Quaternion.identity);
+        if(obj)
+        {
+            obj.transform.SetParent(_level);
+        }      
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.isKinematic = true;
+        int temp = Random.Range(0, 5);
+        if(temp == 0)
+        {
+            GameObject colObj = ObjectPooler.instance.SpawnFromPool("diamond", spawnPos, Quaternion.identity);
+            if(colObj)
+            {
+                colObj.transform.SetParent(_level);
+            }
+        }
     }
     private void GetPositionXandZ()
     {

@@ -17,6 +17,8 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] TextMeshProUGUI _currentLevelText;
     [SerializeField] TextMeshProUGUI _nextLevelText;
     [SerializeField] TextMeshProUGUI _scoreText;
+    [SerializeField] TextMeshProUGUI _endScoreText;
+    [SerializeField] TextMeshProUGUI _endHighScoreText;
     [Header("ProgressBar")]
     [SerializeField] Slider _progressBar;
 
@@ -47,9 +49,12 @@ public class UIManager : MonoSingleton<UIManager>
         _currentLevelText.text = $"{(LevelManager.instance.Index + 1)}";
         _nextLevelText.text = $"{(LevelManager.instance.Index + 2)}";
     }
-    public void ScoreUpdate(int score)
+    public void ScoreUpdate(int score, int highScore)
     {
         _scoreText.text = $"{score}";
+        _endScoreText.text = $"{score}";
+        _endHighScoreText.text = $"{highScore}";
+
     }
     public void ProgressBar(float value)
     {

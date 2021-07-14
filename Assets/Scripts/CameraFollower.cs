@@ -9,7 +9,7 @@ public class CameraFollower : MonoBehaviour
     [SerializeField] float _offset = 70f;
     private void Start() 
     {
-        cam = Camera.main;    
+        cam = FindObjectOfType<Camera>();    
     }
     private void Update() 
     {

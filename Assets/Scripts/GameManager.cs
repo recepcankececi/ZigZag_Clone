@@ -36,4 +36,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         CurrentGameState = GameState.FinishGame;
     }
+    public void ToPrepare()
+    {
+        CurrentGameState = GameState.Prepare;
+    }
 }

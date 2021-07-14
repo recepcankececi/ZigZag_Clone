@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoSingleton<LevelManager>
 {
     [SerializeField] List<GameObject> levels;
+    [SerializeField] GameObject _pooler;
     private int _index;
     private GameObject _currentLevel;
     public int Index { get => _index; }
@@ -19,7 +20,11 @@ public class LevelManager : MonoSingleton<LevelManager>
     }
     public void RestartLevel()
     {
+        _pooler.SetActive(false);
+        _pooler.SetActive(true);
         StartCoroutine(UIManager.instance.LevelLoadRoutine(_index));
+        GameManager.instance.ToPrepare();
+        UIManager.instance.IntroPanel();
     }
     public void LoadNextLevel()
     {
